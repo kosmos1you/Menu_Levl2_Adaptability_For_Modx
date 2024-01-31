@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+    <head>
+        [[$meta]]
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <style>
+.nav-item > a
+{
+  display: block;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-bottom: 1px solid #4ea5d9;
+  transition: all 0.2s;
+  position:relative;
+}
+.navbar-nav.me-auto.mb-2.mb-lg-0
+{
+  margin: 0;
+  padding: 0;
+}
+.dropdown{
+  position: relative;  
+}
+.dropdown-menu{
+    display:none;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: none;
+    padding: 10px 20px;
+    background: #4EA5D9;
+}
+/*.dropdown:hover > .dropdown-menu{
+    display:block;
+    background: #4EA5D9;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+}*/
+
+.dropdown-menu > li {
+    border-bottom: 1px solid #09D0CC;
+    list-style: none;
+    padding: 10px 0px;
+}
+.dropdown-item
+{
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-item:hover > a:before
+{
+  position: absolute;
+  content: '';
+  width: 3px;
+  height: 100%;
+  background: #0acfcc;
+  left: 0px;
+  top: 0;
+}
+.drop_icon
+{
+    background-image: url('/assets/template/img/plus-solid.svg');
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    cursor: pointer;
+}
+/*.dropdown:hover > .drop_icon{
+    background-image: url('/assets/template/img/minus.png'); 
+    top: 20px;
+    right: 0px;
+} */
+.drop_icon.active + .dropdown-menu{
+    display: block;
+}
+        </style>
+    	<main>
+            <aside class="left">
+            <section class="aside-menu">
+            <h3>Главное меню</h3>
+            [[!pdoMenu?
+                &level=`2`
+                &parents=`0`
+                &firstClass=`0`
+                &lastClass=`0`
+                &rowClass=`nav-item`
+                &tpl=`@INLINE <li [[+classes]]><a class="nav-link" href="[[+link]]"[[+attributes]]>[[+menutitle]]</a>[[+wrapper]]</li>`
+                &parentClass=`dropdown`
+                &outerClass=`navbar-nav me-auto mb-2 mb-lg-0`
+                &tplOuter=`@INLINE <ul[[+classes]] >[[+wrapper]]</ul>`
+                &tplInner=`@INLINE <ul class="dropdown-menu">[[+wrapper]]</ul>`
+                &tplInnerRow=`@INLINE <li><a class="dropdown-item" href="[[+link]]"[[+attributes]]>&#8226; [[+menutitle]]</a></li>[[+wrapper]]`
+                &tplParentRow=`@INLINE <li[[+classes]]><a  class="nav-link dropdown-toggle" href="[[+link]]" [[+attributes]]>[[+menutitle]]</a> <span class="drop_icon"></span>[[+wrapper]]</li>`
+            ]]
+</section>
+            	
+    	</main>
+    	
+    </body>
+    
+    <script>
+        $(document).ready(function() {
+            $('.drop_icon').click(function() {
+                if($(this).hasClass('active')){$(this).removeClass('active');return;}
+                $('span').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+</html>
